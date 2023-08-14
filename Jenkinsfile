@@ -14,7 +14,7 @@ pipeline {
                 withAWS(region:'ap-southeast-1',credentials:'aws-credential') {
                     sh "aws ecr get-login-password --region ${REGION} | docker login --username AWS --password-stdin ${REPO_URI}"
                     sh "docker build -t ${FRONTEND_REPO} frontend/"
-                    sh "docker tag ${FRONTEND_REPO}:${IMAGE_TAG} ${REPO_URI}/${FRONTEND_REPO}:${IMAGE_TAG}"
+                    sh "docker tag ${FRONTEND_REPO}:latest ${REPO_URI}/${FRONTEND_REPO}:${IMAGE_TAG}"
                     sh "docker push ${REPO_URI}/${FRONTEND_REPO}:${IMAGE_TAG}"
                 }
             }
@@ -25,7 +25,7 @@ pipeline {
                 withAWS(region:'ap-southeast-1',credentials:'aws-credential') {
                     sh "aws ecr get-login-password --region ${REGION} | docker login --username AWS --password-stdin ${REPO_URI}"
                     sh "docker build -t ${BACKEND_REPO} backend/"
-                    sh "docker tag ${BACKEND_REPO}:${IMAGE_TAG} ${REPO_URI}/${BACKEND_REPO}:${IMAGE_TAG}"
+                    sh "docker tag ${BACKEND_REPO}:latest ${REPO_URI}/${BACKEND_REPO}:${IMAGE_TAG}"
                     sh "docker push ${REPO_URI}/${BACKEND_REPO}:${IMAGE_TAG}"
                 }
             }
